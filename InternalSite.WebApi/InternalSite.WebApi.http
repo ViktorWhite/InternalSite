@@ -1,0 +1,6 @@
+# @internalsite.webapi_hostaddress = http://localhost:5164
+
+# get {{internalsite.webapi_hostaddress}}/weatherforecast/
+# accept: application/json
+
+# ###
