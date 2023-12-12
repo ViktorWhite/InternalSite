@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Position.Commands.UpdatePosition.Tests
 {
+    /// <summary>
+    /// Класс проверки валидатора UpdatePositionCommandValidator
+    /// </summary>
     public class UpdatePositionCommandValidatorTests
     {
         private readonly UpdatePositionCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Position.Commands.UpdatePosition.Tests
             _validator = new UpdatePositionCommandValidator();
         }
 
+        /// <summary>
+        /// Метод проверки невалидного Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotBeEmpty()
         {
@@ -29,6 +35,9 @@ namespace InternalSite.Application.Position.Commands.UpdatePosition.Tests
             result.ShouldHaveValidationErrorFor(upc => upc.Name);
         }
 
+        /// <summary>
+        /// Метод проверки невалидного Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotExceedMaximumLength()
         {
@@ -47,6 +56,9 @@ namespace InternalSite.Application.Position.Commands.UpdatePosition.Tests
             result.ShouldHaveValidationErrorFor(upc => upc.Name);
         }
 
+        /// <summary>
+        /// Метод проверки валидных данных
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

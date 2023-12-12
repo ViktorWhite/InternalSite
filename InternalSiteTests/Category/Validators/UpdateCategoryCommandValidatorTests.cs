@@ -3,6 +3,9 @@ using InternalSite.Application.Category.Commands.UpdateCategory;
 
 namespace InternalSiteTests.Category.Validators
 {
+    /// <summary>
+    /// Класс тестирования UpdateCategoryCommandValidator 
+    /// </summary>
     public class UpdateCategoryCommandValidatorTests
     {
         private readonly UpdateCategoryCommandValidator _validator;
@@ -12,6 +15,9 @@ namespace InternalSiteTests.Category.Validators
             _validator = new UpdateCategoryCommandValidator();
         }
 
+        /// <summary>
+        /// Тест невалидного значения id
+        /// </summary>
         [Fact]
         public void Id_ShouldNotBeEmpty()
         {
@@ -29,6 +35,9 @@ namespace InternalSiteTests.Category.Validators
             result.ShouldHaveValidationErrorFor(ucc => ucc.Id);
         }
 
+        /// <summary>
+        /// Тест невалидного значения Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotBeEmpty()
         {
@@ -46,6 +55,9 @@ namespace InternalSiteTests.Category.Validators
             result.ShouldHaveValidationErrorFor(ucc => ucc.Name);
         }
 
+        /// <summary>
+        /// Тест невалидного значения Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotExceedMaximumLength()
         {
@@ -63,6 +75,9 @@ namespace InternalSiteTests.Category.Validators
             result.ShouldHaveValidationErrorFor(ucc => ucc.Name);
         }
 
+        /// <summary>
+        /// Тест валиднs[ значений
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

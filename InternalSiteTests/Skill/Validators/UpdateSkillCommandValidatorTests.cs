@@ -2,15 +2,23 @@
 
 namespace InternalSite.Application.Skill.Commands.UpdateSkill.Tests
 {
+    /// <summary>
+    /// Класс проверяет валидатор UpdateSkillCommandValidator
+    /// </summary>
     public class UpdateSkillCommandValidatorTests
     {
         private readonly UpdateSkillCommandValidator _validator;
+
 
         public UpdateSkillCommandValidatorTests()
         {
             _validator = new UpdateSkillCommandValidator();
         }
 
+
+        /// <summary>
+        /// Тест на невалидный id
+        /// </summary>
         [Fact]
         public void Id_ShouldNotBeEmpty()
         {
@@ -28,6 +36,9 @@ namespace InternalSite.Application.Skill.Commands.UpdateSkill.Tests
             result.ShouldHaveValidationErrorFor(usc => usc.Id);
         }
 
+        /// <summary>
+        /// Тест на невалидный Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotBeEmpty()
         {
@@ -45,6 +56,9 @@ namespace InternalSite.Application.Skill.Commands.UpdateSkill.Tests
             result.ShouldHaveValidationErrorFor(usc => usc.Name);
         }
 
+        /// <summary>
+        /// Тест на невалидный Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotExceedMaximumLength()
         {
@@ -62,6 +76,9 @@ namespace InternalSite.Application.Skill.Commands.UpdateSkill.Tests
             result.ShouldHaveValidationErrorFor(usc => usc.Name);
         }
 
+        /// <summary>
+        /// Тест на валидные данные
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

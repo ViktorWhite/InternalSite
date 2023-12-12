@@ -16,7 +16,7 @@ namespace InternalSiteTests.Category.Validators
         }
 
         /// <summary>
-        /// 
+        /// Тест на невалидное значение
         /// </summary>
         [Fact]
         public void Id_ShouldNotBeEmpty()
@@ -34,6 +34,9 @@ namespace InternalSiteTests.Category.Validators
             result.ShouldHaveValidationErrorFor(dcc => dcc.Id);
         }
 
+        /// <summary>
+        /// Тест на валидное значение
+        /// </summary>
         [Fact]
         public void Id_ShouldBeValid()
         {

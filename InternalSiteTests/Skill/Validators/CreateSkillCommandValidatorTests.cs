@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Skill.Commands.CreateSkill.Tests
 {
+    /// <summary>
+    /// Класс проверят валидатор CreateSkillCommandValidator
+    /// </summary>
     public class CreateSkillCommandValidatorTests
     {
         private readonly CreateSkillCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Skill.Commands.CreateSkill.Tests
             _validator = new CreateSkillCommandValidator();
         }
 
+        /// <summary>
+        /// Тест на невалидный Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotBeEmpty()
         {
@@ -27,6 +33,9 @@ namespace InternalSite.Application.Skill.Commands.CreateSkill.Tests
             result.ShouldHaveValidationErrorFor(csc => csc.Name);
         }
 
+        /// <summary>
+        /// Тест на невалидный Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotExceedMaximumLength()
         {
@@ -43,6 +52,9 @@ namespace InternalSite.Application.Skill.Commands.CreateSkill.Tests
             result.ShouldHaveValidationErrorFor(csc => csc.Name);
         }
 
+        /// <summary>
+        /// Тест c валидными данными
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

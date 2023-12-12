@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Position.Commands.DeletePosition.Tests
 {
+    /// <summary>
+    /// Тесты проверяют валидатор CreatePositionCommandValidator
+    /// </summary>
     public class DeletePositionCommandValidatorTests
     {
         private readonly DeletePositionCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Position.Commands.DeletePosition.Tests
             _validator = new DeletePositionCommandValidator();
         }
 
+        /// <summary>
+        /// Метод проверки невалидного id 
+        /// </summary>
         [Fact]
         public void Id_ShouldNotBeEmpty()
         {
@@ -27,6 +33,9 @@ namespace InternalSite.Application.Position.Commands.DeletePosition.Tests
             result.ShouldHaveValidationErrorFor(dpc => dpc.Id);
         }
 
+        /// <summary>
+        /// Метод проверки валидного id
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

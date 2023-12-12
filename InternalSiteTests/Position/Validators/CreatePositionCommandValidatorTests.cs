@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Position.Commands.CreatePosition.Tests
 {
+    /// <summary>
+    /// Тесты проверяют валидатор CreatePositionCommandValidator
+    /// </summary>
     public class CreatePositionCommandValidatorTests
     {
         private readonly CreatePositionCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Position.Commands.CreatePosition.Tests
             _validator = new CreatePositionCommandValidator();
         }
 
+        /// <summary>
+        /// Метод проверяет невалидные данныхе Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotBeEmpty()
         {
@@ -28,6 +34,9 @@ namespace InternalSite.Application.Position.Commands.CreatePosition.Tests
             result.ShouldHaveValidationErrorFor(cpc => cpc.Name);
         }
 
+        /// <summary>
+        /// Метод проверяет невалидные данныхе Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotExceedMaximumLength()
         {
@@ -45,6 +54,9 @@ namespace InternalSite.Application.Position.Commands.CreatePosition.Tests
             result.ShouldHaveValidationErrorFor(cpc => cpc.Name);
         }
 
+        /// <summary>
+        /// Метод проверяет валидные данные Name
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

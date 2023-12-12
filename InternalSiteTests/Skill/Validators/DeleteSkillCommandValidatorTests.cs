@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Skill.Commands.DeleteSkill.Tests
 {
+    /// <summary>
+    /// Класс проверяет валидатор DeleteSkillCommandValidator
+    /// </summary>
     public class DeleteSkillCommandValidatorTests
     {
         private readonly DeleteSkillCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Skill.Commands.DeleteSkill.Tests
             _validator = new DeleteSkillCommandValidator();
         }
 
+        /// <summary>
+        /// Тест на невалидный id
+        /// </summary>
         [Fact]
         public void Id_ShouldNotBeEmpty()
         {
@@ -27,6 +33,10 @@ namespace InternalSite.Application.Skill.Commands.DeleteSkill.Tests
             result.ShouldHaveValidationErrorFor(dsc => dsc.Id);
         }
 
+
+        /// <summary>
+        /// Тест на валидные данные
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Person.Commands.UpdatePerson.Tests
 {
+    /// <summary>
+    /// Класс проверки валидатора UpdatePersonCommandValidator
+    /// </summary>
     public class UpdatePersonCommandValidatorTests
     {
         private readonly UpdatePersonCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Person.Commands.UpdatePerson.Tests
             _validator = new UpdatePersonCommandValidator();
         }
 
+        /// <summary>
+        /// Метод проверки невалидным id 
+        /// </summary>
         [Fact]
         public void Id_ShouldNotBeEmpty()
         {
@@ -35,6 +41,9 @@ namespace InternalSite.Application.Person.Commands.UpdatePerson.Tests
             result.ShouldHaveValidationErrorFor(upc => upc.Id);
         }
 
+        /// <summary>
+        /// Метод проверки невалидным Surname
+        /// </summary>
         [Fact]
         public void Surname_ShouldNotBeEmpty()
         {
@@ -59,6 +68,9 @@ namespace InternalSite.Application.Person.Commands.UpdatePerson.Tests
             result.ShouldHaveValidationErrorFor(upc => upc.Surname);
         }
 
+        /// <summary>
+        /// Метод проверки валидными значениями 
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

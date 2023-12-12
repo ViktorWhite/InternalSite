@@ -2,6 +2,9 @@
 
 namespace InternalSite.Application.Person.Commands.CreatePerson.Tests
 {
+    /// <summary>
+    /// Класс проверяет валидатор CreatePersonCommandValidator
+    /// </summary>
     public class CreatePersonCommandValidatorTests
     {
         private readonly CreatePersonCommandValidator _validator;
@@ -11,6 +14,9 @@ namespace InternalSite.Application.Person.Commands.CreatePerson.Tests
             _validator = new CreatePersonCommandValidator();
         }
 
+        /// <summary>
+        /// Метод проверки невалидным Name
+        /// </summary>
         [Fact]
         public void Name_ShouldNotBeEmpty()
         {
@@ -34,6 +40,9 @@ namespace InternalSite.Application.Person.Commands.CreatePerson.Tests
             result.ShouldHaveValidationErrorFor(ccc => ccc.Name);
         }
 
+        /// <summary>
+        /// Метод проверки невалидным Surname
+        /// </summary>
         [Fact]
         public void Surname_ShouldNotBeEmpty()
         {
@@ -57,6 +66,9 @@ namespace InternalSite.Application.Person.Commands.CreatePerson.Tests
             result.ShouldHaveValidationErrorFor(ccc => ccc.Surname);
         }
 
+        /// <summary>
+        /// Метод проверки валидными значениями
+        /// </summary>
         [Fact]
         public void Command_ShouldBeValid()
         {

@@ -12,7 +12,7 @@ namespace InternalSite.Application.Category.Queries.GetCategoryQuery
         /// </summary>
         public GetCategoryQueryValidator()
         {
-            RuleFor(gcq => gcq.Id).NotEmpty().NotNull();
+            RuleFor(gcq => gcq.Id).NotEmpty();
         }
     }
 }
