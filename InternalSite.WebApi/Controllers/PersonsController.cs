@@ -188,13 +188,19 @@ namespace InternalSite.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<PersonVM>>> GetPesons(int? positionId)
+        public async Task<ActionResult<List<PersonVM>>> GetPesons(int? positionId, string? skillsOfPersonVM, bool isAnySkill)
         {
             try
             {
+                var skillsList = string.IsNullOrEmpty(skillsOfPersonVM)
+                ? new List<int>()
+                : skillsOfPersonVM.Split(',').Select(int.Parse).ToList();
+
                 var getListPersonQuery = new GetListPersonQuery
                 {
-                    PositionId = positionId
+                    PositionId = positionId,
+                    SkillsOfPersonVM = skillsList,
+                    IsAnySkill = isAnySkill
                 };
                 return Ok(await Mediator.Send(getListPersonQuery));
             }

@@ -12,6 +12,8 @@ namespace InternalSite.Application.Person.Queries.GetListPersonQuery
     public class GetListPersonQuery : IRequest<List<PersonVM>>
     {
         public int? PositionId { get; set; }
+        public List<int> SkillsOfPersonVM { get; set; }
+        public bool IsAnySkill { get; set; }
     }
 
     /// <summary>
@@ -52,15 +54,16 @@ namespace InternalSite.Application.Person.Queries.GetListPersonQuery
                })
                .ToListAsync();
 
-            if (request.PositionId == null)
-            {
-                return result;
-            }
+            result = result.Where(x =>
+                (request.PositionId == null || x.PositionId == request.PositionId) && 
+                (request.IsAnySkill
+                    ? x.SkillsOfPersonVM.Any(skill => request.SkillsOfPersonVM.Contains(skill.SkillId)) 
+                    : x.SkillsOfPersonVM.Count == request.SkillsOfPersonVM.Count && 
+                      request.SkillsOfPersonVM.All(skillId => x.SkillsOfPersonVM.Any(skill => skill.SkillId == skillId))
+                ))
+                .ToList();
 
-            else
-            {
-                return result.Where(x => x.PositionId == request.PositionId).ToList();
-            }
+            return result;
         }
     }
 }
