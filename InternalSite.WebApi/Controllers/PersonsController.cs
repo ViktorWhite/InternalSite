@@ -5,6 +5,7 @@ using InternalSite.Application.Person.Commands.UpdatePerson;
 using InternalSite.Application.Person.Queries.Common;
 using InternalSite.Application.Person.Queries.GetListPersonQuery;
 using InternalSite.Application.Person.Queries.GetPersonQuery;
+using InternalSite.Domain;
 using InternalSite.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -187,11 +188,14 @@ namespace InternalSite.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<PersonVM>>> GetPesons()
+        public async Task<ActionResult<List<PersonVM>>> GetPesons(int? positionId)
         {
             try
             {
-                var getListPersonQuery = new GetListPersonQuery();
+                var getListPersonQuery = new GetListPersonQuery
+                {
+                    PositionId = positionId
+                };
                 return Ok(await Mediator.Send(getListPersonQuery));
             }
             catch (Exception ex)

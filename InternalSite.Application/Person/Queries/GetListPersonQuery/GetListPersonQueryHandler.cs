@@ -10,7 +10,9 @@ namespace InternalSite.Application.Person.Queries.GetListPersonQuery
     /// Запрос на предоставление списка сотрудников с их навыками
     /// </summary>
     public class GetListPersonQuery : IRequest<List<PersonVM>>
-    { }
+    {
+        public int? PositionId { get; set; }
+    }
 
     /// <summary>
     /// Обработчик запроса на предоставление списка сотрудников с их навыками
@@ -27,26 +29,38 @@ namespace InternalSite.Application.Person.Queries.GetListPersonQuery
         /// <exception cref="NotFoundException"></exception>
         public async Task<List<PersonVM>> Handle(GetListPersonQuery request, CancellationToken cancellationToken)
         {
-            return await dbContext.Persons
-                .Include(p => p.SkillsOfPerson)
-                .Select(person => new PersonVM
-                {
-                    Id = person.Id,
-                    Name = person.Name,
-                    Surname = person.Surname,
-                    Patronymic = person.Patronymic,
-                    Birthday = person.Birthday,
-                    PhoneNumber = person.PhoneNumber,
-                    CategoryId = person.CategoryId,
-                    PositionId = person.PositionId,
-                    SkillsOfPersonVM = person.SkillsOfPerson.Select(skill => new SkillOfPersonVM
-                    {
-                        Id = skill.Id,
-                        PersonId = skill.PersonId,
-                        Level = skill.Level,
-                        SkillId = skill.SkillId
-                    }).ToList()
-                }).ToListAsync();
+            var result = await dbContext.Persons
+               .Include(p => p.SkillsOfPerson)
+               .Select(person => new PersonVM
+               {
+                   Id = person.Id,
+                   Name = person.Name,
+                   Surname = person.Surname,
+                   Patronymic = person.Patronymic,
+                   Birthday = person.Birthday,
+                   PhoneNumber = person.PhoneNumber,
+                   CategoryId = person.CategoryId,
+                   PositionId = person.PositionId,
+                   SkillsOfPersonVM = person.SkillsOfPerson.Select(skill => new SkillOfPersonVM
+                   {
+                       Id = skill.Id,
+                       PersonId = skill.PersonId,
+                       Level = skill.Level,
+                       SkillId = skill.SkillId
+                   })
+                   .ToList()
+               })
+               .ToListAsync();
+
+            if (request.PositionId == null)
+            {
+                return result;
+            }
+
+            else
+            {
+                return result.Where(x => x.PositionId == request.PositionId).ToList();
+            }
         }
     }
 }
