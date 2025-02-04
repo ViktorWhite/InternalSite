@@ -32,36 +32,32 @@ namespace InternalSite.Application.Person.Queries.GetListPersonQuery
         public async Task<List<PersonVM>> Handle(GetListPersonQuery request, CancellationToken cancellationToken)
         {
             var result = await dbContext.Persons
-               .Include(p => p.SkillsOfPerson)
-               .Select(person => new PersonVM
-               {
-                   Id = person.Id,
-                   Name = person.Name,
-                   Surname = person.Surname,
-                   Patronymic = person.Patronymic,
-                   Birthday = person.Birthday,
-                   PhoneNumber = person.PhoneNumber,
-                   CategoryId = person.CategoryId,
-                   PositionId = person.PositionId,
-                   SkillsOfPersonVM = person.SkillsOfPerson.Select(skill => new SkillOfPersonVM
-                   {
-                       Id = skill.Id,
-                       PersonId = skill.PersonId,
-                       Level = skill.Level,
-                       SkillId = skill.SkillId
-                   })
-                   .ToList()
-               })
-               .ToListAsync();
-
-            result = result.Where(x =>
-                (request.PositionId == null || x.PositionId == request.PositionId) && 
-                (request.IsAnySkill
-                    ? x.SkillsOfPersonVM.Any(skill => request.SkillsOfPersonVM.Contains(skill.SkillId)) 
-                    : x.SkillsOfPersonVM.Count == request.SkillsOfPersonVM.Count && 
-                      request.SkillsOfPersonVM.All(skillId => x.SkillsOfPersonVM.Any(skill => skill.SkillId == skillId))
-                ))
-                .ToList();
+                        .Include(p => p.SkillsOfPerson)
+                        .Where(person => (request.PositionId == null || person.PositionId == request.PositionId) &&
+                                         (request.IsAnySkill
+                                             ? person.SkillsOfPerson.Any(skill => request.SkillsOfPersonVM.Contains(skill.SkillId))
+                                             : person.SkillsOfPerson.Count >= request.SkillsOfPersonVM.Count &&
+                                               request.SkillsOfPersonVM.All(skillId => person.SkillsOfPerson.Any(skill => skill.SkillId == skillId))))
+                        .Select(person => new PersonVM
+                        {
+                            Id = person.Id,
+                            Name = person.Name,
+                            Surname = person.Surname,
+                            Patronymic = person.Patronymic,
+                            Birthday = person.Birthday,
+                            PhoneNumber = person.PhoneNumber,
+                            CategoryId = person.CategoryId,
+                            PositionId = person.PositionId,
+                            SkillsOfPersonVM = person.SkillsOfPerson.Select(skill => new SkillOfPersonVM
+                            {
+                                Id = skill.Id,
+                                PersonId = skill.PersonId,
+                                Level = skill.Level,
+                                SkillId = skill.SkillId
+                            })
+                             .ToList()
+                        })
+                        .ToListAsync();
 
             return result;
         }
