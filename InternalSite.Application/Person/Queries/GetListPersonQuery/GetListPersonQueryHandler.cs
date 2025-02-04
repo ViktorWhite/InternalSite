@@ -32,7 +32,6 @@ namespace InternalSite.Application.Person.Queries.GetListPersonQuery
         public async Task<List<PersonVM>> Handle(GetListPersonQuery request, CancellationToken cancellationToken)
         {
             var result = await dbContext.Persons
-                        .Include(p => p.SkillsOfPerson)
                         .Where(person => (request.PositionId == null || person.PositionId == request.PositionId) &&
                                          (request.IsAnySkill
                                              ? person.SkillsOfPerson.Any(skill => request.SkillsOfPersonVM.Contains(skill.SkillId))
